@@ -16,17 +16,11 @@ export const API_VERSION = 'v1'
 // ENDPOINTS de la aplicacion en los diferentes entornos
 // Nota: las claves de este objeto deben coincidir con el (o los) valores de la constante ENV
 export const ENDPOINTS = {
-  URL: {
+  API: {
     prod: '',
     stage: '',
     qa: '',
     dev: '',
     local: '',
   },
-}
-
-export default {
-  ENDPOINTS,
-  ENV,
-  API_VERSION,
 }

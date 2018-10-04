@@ -1,0 +1,5 @@
+const CHANGE_CONNECTION_STATE = 'connection/CHANGE_CONNECTION_STATE';
+
+export default {
+  CHANGE_CONNECTION_STATE
+};
