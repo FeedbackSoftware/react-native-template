@@ -1,32 +1,34 @@
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
-import { persistReducer, persistStore } from 'redux-persist';
-import thunk from 'redux-thunk';
-import logger from 'redux-logger';
-import storage from 'redux-persist/lib/storage';
-import * as reducers from './ducks';
-import { api, auth, messages, newsfeed, notifications, nav } from './middlewares';
+import { persistReducer, persistStore }                           from 'redux-persist';
+import logger                                                     from 'redux-logger';
+import storage                                                    from 'redux-persist/lib/storage';
+import {
+  reduxifyNavigator,
+  createReactNavigationReduxMiddleware,
+}                  from 'react-navigation-redux-helpers';
+
+import * as reducers                                              from './ducks';
+import { api, messages, nav }      from './middlewares';
+import { AppNavigator }                                           from '../navigation'
 
 const configureStore = (initialState = {}) => {
-  const middlewares = [thunk];
 
-  if (__DEV__) {
-    middlewares.push(logger);
-  }
+  const reactNavigationMiddleware = createReactNavigationReduxMiddleware(
+    'root',
+    state => state.nav,
+  )
 
   // Los middleware 'api' y 'messages' deben ir de últimos
-  middlewares.push(
-    ...[
-      ...nav,
-      ...auth,
-      ...newsfeed,
-      ...notifications,
-      ...api,
-      ...messages
-    ],
-  );
+  const middlewares = [
+    ...(__DEV__ ? [logger] : []),
+    ...nav,
+    ...api,
+    ...messages,
+    reactNavigationMiddleware,
+  ];
 
   const rootReducer = combineReducers({
-    ...reducers,
+    ...reducers
   });
 
   const rootPersistConfig = {

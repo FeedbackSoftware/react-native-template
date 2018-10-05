@@ -1,12 +1,10 @@
 import { AppNavigator } from '../../../navigators';
 
-const { getStateForAction } = AppNavigator.router;
+const nav = (state = {}, action) => {
+  const nextState = AppNavigator.router.getStateForAction(action, state);
 
-const nav = (state, action) => {
-
-
-  const newState = getStateForAction(action, state);
-  return newState || state;
+  // Simply return the original `state` if `nextState` is null or undefined.
+  return nextState || state;
 };
 
 export default nav;
