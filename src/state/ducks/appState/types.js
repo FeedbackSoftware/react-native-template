@@ -1,5 +1,5 @@
-const CHANGE_STATE = 'appState/CHANGE_STATE';
+const CHANGE_STATE = 'appState/CHANGE_STATE'
 
 export default {
-  CHANGE_STATE
-};
+  CHANGE_STATE,
+}
