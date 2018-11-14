@@ -1,51 +1,57 @@
-import axios                      from 'axios'
-import { authActions, authTypes } from '../ducks/auth'
+import axios                      from 'axios';
+import { authActions, authTypes } from '../ducks/auth';
 
-const api = ({dispatch, getState}) => (next) => (action) => {
+
+const api = ({ dispatch, getState }) => next => (action) => {
   const types = [
     authTypes.API_CALL,
-  ]
+  ];
 
   if (!types.includes(action.type)) {
-    return next(action)
+    return next(action);
   }
 
-  const {auth: {user}, connection} = getState()
-  const {config: preConfig, authorization = false, onStart, onEnd, onComplete, onError} = action.payload
+  const {
+    config: preConfig,
+    authorization = false,
+    onStart = () => console.error('onStart not defined'),
+    onEnd = () => console.error('onEnd not defined'),
+    onComplete = response => console.log('onComplete', response),
+    onError = error => console.log('onError', error),
+  } = action.payload;
 
-  if (connection.actual === 'none' || connection.actual === 'unknown') {
-    return
-  }
-
+  const { auth: { user } } = getState();
   const config = authorization ? {
     ...preConfig,
     headers: {
       ...preConfig.headers,
-      Authorization: `Bearer ${user.access_token}`,
+      Authorization: `${user.token}`,
     },
-  } : preConfig
+  } : preConfig;
 
-  onStart && dispatch(onStart())
-  axios(config).then((response) => {
-    __DEV__ && console.log(response, config)
-    const {status} = response
-    if (status === 'blocked' || status === 401) {
-      dispatch(authActions.logout())
-    }
-    onComplete && onComplete(dispatch, response)
-    onEnd && dispatch(onEnd(response))
-  }).catch((error) => {
-    __DEV__ && console.error(error, config)
-    const {response} = error
-    if (response) {
-      const {status} = response
-      if (status === 'blocked' || status === 401) {
-        dispatch(authActions.logout())
+  dispatch(onStart());
+  axios(config)
+    .then((response) => {
+      console.log(response);
+      const { status } = response;
+      if (status === 401) {
+        dispatch(authActions.logout());
       }
-    }
-    onError && onError(error)
-    onEnd && dispatch(onEnd(error))
-  })
-}
+      onComplete(response);
+      dispatch(onEnd(response));
+    })
+    .catch((error) => {
+      console.log(error);
+      const { response } = error;
+      if (response) {
+        const { status } = response;
+        if (status === 401) {
+          dispatch(authActions.logout());
+        }
+      }
+      onError(error);
+      dispatch(onEnd(error));
+    });
+};
 
-export default [api]
+export default [api];
