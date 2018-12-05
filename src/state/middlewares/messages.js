@@ -1,16 +1,16 @@
-import { Alert }     from 'react-native'
-import { authTypes } from '../ducks/auth'
+import { Alert }     from 'react-native';
+import { authTypes } from '../ducks/auth';
 
-const endFetch = ({dispatch}) => (next) => (action) => {
-  next(action)
+const endFetch = ({ dispatch }) => (next) => (action) => {
+  next(action);
 
-  const types = [authTypes.END_FETCH]
+  const types = [authTypes.END_FETCH];
 
   if (!types.includes(action.type) || !action.payload) {
-    return
+    return;
   }
 
-  const {error, payload} = action
+  const { error, payload } = action;
 
   if (error) {
     dispatch({
@@ -21,7 +21,7 @@ const endFetch = ({dispatch}) => (next) => (action) => {
       meta: {
         config: TOAST_CONFIGS.ERROR,
       },
-    })
+    });
   } else if (payload.status === 'error') {
     dispatch({
       type: authTypes.MESSAGE,
@@ -31,21 +31,21 @@ const endFetch = ({dispatch}) => (next) => (action) => {
       meta: {
         config: TOAST_CONFIGS.WARNING,
       },
-    })
+    });
   }
-}
+};
 
 const messages = () => (next) => (action) => {
-  const types = [authTypes.MESSAGE]
+  const types = [authTypes.MESSAGE];
 
   if (!types.includes(action.type)) {
-    return next(action)
+    return next(action);
   }
 
-  const {message} = action.payload
-  const {config} = action.meta
+  const { message = 'THERE IS NO MESSAGE' } = action.payload;
+  const { config = {} } = action.meta;
 
-  Alert.alert(message)
-}
+  Alert.alert(message);
+};
 
-export default [endFetch, messages]
+export default [/*endFetch, messages*/];
