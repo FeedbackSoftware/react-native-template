@@ -1,14 +1,13 @@
-import axios                      from 'axios';
-import { authActions, authTypes } from '../ducks/auth';
-
+import axios                      from 'axios'
+import { authActions, authTypes } from '../ducks/auth'
 
 const api = ({ dispatch, getState }) => next => (action) => {
   const types = [
     authTypes.API_CALL,
-  ];
+  ]
 
   if (!types.includes(action.type)) {
-    return next(action);
+    return next(action)
   }
 
   const {
@@ -18,40 +17,40 @@ const api = ({ dispatch, getState }) => next => (action) => {
     onEnd = () => console.error('onEnd not defined'),
     onComplete = response => console.log('onComplete', response),
     onError = error => console.log('onError', error),
-  } = action.payload;
+  } = action.payload
 
-  const { auth: { user } } = getState();
+  const { auth: { user } } = getState()
   const config = authorization ? {
     ...preConfig,
     headers: {
       ...preConfig.headers,
       Authorization: `${user.token}`,
     },
-  } : preConfig;
+  } : preConfig
 
-  dispatch(onStart());
+  dispatch(onStart())
   axios(config)
-    .then((response) => {
-      console.log(response);
-      const { status } = response;
-      if (status === 401) {
-        dispatch(authActions.logout());
-      }
-      onComplete(response);
-      dispatch(onEnd(response));
-    })
-    .catch((error) => {
-      console.log(error);
-      const { response } = error;
-      if (response) {
-        const { status } = response;
+      .then((response) => {
+        console.log(response)
+        const { status } = response
         if (status === 401) {
-          dispatch(authActions.logout());
+          dispatch(authActions.logout())
         }
-      }
-      onError(error);
-      dispatch(onEnd(error));
-    });
-};
+        onComplete(response)
+        dispatch(onEnd(response))
+      })
+      .catch((error) => {
+        console.log(error)
+        const { response } = error
+        if (response) {
+          const { status } = response
+          if (status === 401) {
+            dispatch(authActions.logout())
+          }
+        }
+        onError(error)
+        dispatch(onEnd(error))
+      })
+}
 
-export default [api];
+export default [api]
