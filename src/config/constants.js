@@ -18,7 +18,7 @@ export const IMG = {
 
 // Se genera la URL base de acuerdo a los endpoints del entorno
 // Opcionalmente se puede usar versionamiento de la API
-const {API} = ENDPOINTS
+const { API } = ENDPOINTS
 
 const API_URL = `${API[ENV]}/${API_VERSION}/`
 
