@@ -15,7 +15,7 @@ const auth = (state = {}, action) => {
       }
     }
     case types.END_FETCH: {
-      const {error} = action
+      const { error } = action
       return {
         ...state,
         loading: false,
