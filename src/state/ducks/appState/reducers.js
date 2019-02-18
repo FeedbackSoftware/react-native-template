@@ -1,19 +1,19 @@
-import types from './types';
+import types from './types'
 
 const appState = (state = {}, action) => {
-  const { actual } = state;
+  const { actual } = state
 
   switch (action.type) {
     case types.CHANGE_STATE: {
       return {
         ...state,
         actual: action.payload.nextAppState,
-        previous: actual
-      };
+        previous: actual,
+      }
     }
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default appState;
+export default appState
