@@ -14,6 +14,7 @@ import {
 import * as reducers from './ducks';
 // import { api, messages, nav } from './middlewares';
 import AppNavigator from '../navigation';
+import configurei18n from '../i18n';
 
 const configureStore = (initialState = {}) => {
   const navReducer = createNavigationReducer(AppNavigator);
@@ -45,7 +46,7 @@ const configureStore = (initialState = {}) => {
     compose(applyMiddleware(...middlewares)));
 
   const persistor = persistStore(store);
-
+  configurei18n(store);
   return {
     store,
     persistor,
