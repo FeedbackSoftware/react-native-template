@@ -1,12 +1,13 @@
-import React    from 'react';
+import React from 'react';
 import {
   createStackNavigator,
-}               from 'react-navigation';
+} from 'react-navigation';
 import { Home } from '../scenes';
+import { withConnectionAlert } from '../hoc';
 
 const AppNavigator = createStackNavigator({
   Home: {
-    screen: Home,
+    screen: withConnectionAlert(Home),
   },
 });
 

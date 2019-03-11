@@ -5,6 +5,8 @@ import { createReduxContainer } from 'react-navigation-redux-helpers';
 import AppNavigator from './navigation';
 
 const App = ({ store, persistor }) => {
+  persistor.purge();
+
   const AppNavigatorWithState = connect(// Map state to props
     ({ nav: state }) => ({
       state,

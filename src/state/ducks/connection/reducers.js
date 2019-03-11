@@ -8,7 +8,7 @@ const connection = (state = {}, action) => {
       return {
         ...state,
         previous: actual.toLowerCase(),
-        actual: action.payload.toLowerCase(),
+        actual: action.payload.type.toLowerCase(),
       }
     }
     default:
