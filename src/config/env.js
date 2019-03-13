@@ -6,7 +6,7 @@
  - qa
  - dev
  - local
- **/
+ * */
 
 export const ENV = 'local'
 

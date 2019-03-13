@@ -18,7 +18,7 @@ const App = ({ store, persistor }) => {
       <PersistGate
         persistor={persistor}
       >
-        <AppNavigatorWithState/>
+        <AppNavigatorWithState />
       </PersistGate>
     </Provider>
   );

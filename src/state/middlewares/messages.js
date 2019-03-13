@@ -1,7 +1,7 @@
 import { Alert }     from 'react-native'
 import { authTypes } from '../ducks/auth'
 
-const endFetch = ({ dispatch }) => (next) => (action) => {
+const endFetch = ({ dispatch }) => next => (action) => {
   next(action)
 
   const types = [authTypes.END_FETCH]
@@ -35,7 +35,7 @@ const endFetch = ({ dispatch }) => (next) => (action) => {
   }
 }
 
-const messages = () => (next) => (action) => {
+const messages = () => next => (action) => {
   const types = [authTypes.MESSAGE]
 
   if (!types.includes(action.type)) {
@@ -48,4 +48,4 @@ const messages = () => (next) => (action) => {
   Alert.alert(message)
 }
 
-export default [/*endFetch, messages*/]
+export default [/* endFetch, messages */]

@@ -33,7 +33,7 @@ const getNavigator = (navigationState, screen) => {
   return null
 }
 
-const screenTracking = ({ dispatch, getState }) => (next) => (action) => {
+const screenTracking = ({ dispatch, getState }) => next => (action) => {
   const types = [
     NavigationActions.BACK,
     NavigationActions.NAVIGATE,
@@ -58,7 +58,7 @@ const screenTracking = ({ dispatch, getState }) => (next) => (action) => {
   }
 }
 
-const stopNavigation = ({ dispatch, getState }) => (next) => (action) => {
+const stopNavigation = ({ dispatch, getState }) => next => (action) => {
   const types = [
     NavigationActions.BACK,
     NavigationActions.NAVIGATE,
@@ -76,8 +76,8 @@ const stopNavigation = ({ dispatch, getState }) => (next) => (action) => {
 
   if (currentScreen !== nextScreen) {
     if (nextNavigator) {
-      if (!nextNavigator.routes.map((route) => route.routeName)
-                        .includes(currentScreen)) {
+      if (!nextNavigator.routes.map(route => route.routeName)
+        .includes(currentScreen)) {
         return next(action)
       }
     } else {
@@ -86,6 +86,6 @@ const stopNavigation = ({ dispatch, getState }) => (next) => (action) => {
   }
 }
 
-export default [/*screenTracking,*/ stopNavigation]
+export default [stopNavigation]
 
 // ESTE ARCHIVO ES ORO

@@ -8,8 +8,8 @@ export const logout = createAction(types.LOGOUT)
 export const signIn = createAction(types.SIGN_IN)
 
 export const showMessage = createAction(types.MESSAGE,
-    ({ message }) => ({ message }),
-    ({ config }) => ({ config }))
+  ({ message }) => ({ message }),
+  ({ config }) => ({ config }))
 
 export default {
   showMessage,

@@ -5,10 +5,10 @@ const withThrottle = (WrappedComponent) => {
   class PreventDoubleClick extends PureComponent {
     componentDidMount() {
       this.onPress = throttle(this.onPress.bind(this), 700,
-          {
-            leading: true,
-            trailing: false,
-          })
+        {
+          leading: true,
+          trailing: false,
+        })
     }
 
     componentWillUnmount() {

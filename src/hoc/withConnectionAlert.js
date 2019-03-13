@@ -82,8 +82,7 @@ const withConnectionAlert = (WrappedComponent) => {
 
   ConnectionAlert.router = WrappedComponent.router
   ConnectionAlert.displayName = `withConnectionAlert(${WrappedComponent.displayName
-  ||
-  WrappedComponent.name})`
+  || WrappedComponent.name})`
 
   const mapStateToProps = ({ connection }) => ({
     connection,

@@ -19,7 +19,7 @@ const Template = () => {
 
   const params = configureStore(initialState);
 
-  return <App {...params} />
+  return <App {...params} />;
 };
 
 AppRegistry.registerComponent(appName, () => Template);

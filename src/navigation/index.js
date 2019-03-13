@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   createStackNavigator,
 } from 'react-navigation';
@@ -7,7 +6,7 @@ import { withConnectionAlert } from '../hoc';
 
 const AppNavigator = createStackNavigator({
   Home: {
-    screen: withConnectionAlert(Home),
+    screen: Home,
   },
 });
 

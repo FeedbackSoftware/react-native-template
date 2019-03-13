@@ -20,7 +20,8 @@ const configureStore = (initialState = {}) => {
   const navReducer = createNavigationReducer(AppNavigator);
 
   const reactNavigationMiddleware = createReactNavigationReduxMiddleware(
-    state => state.nav, 'root');
+    state => state.nav, 'root',
+  );
 
   // Los middleware 'api' y 'messages' deben ir de últimos
   const middlewares = [

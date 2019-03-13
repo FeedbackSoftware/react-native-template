@@ -30,27 +30,27 @@ const api = ({ dispatch, getState }) => next => (action) => {
 
   dispatch(onStart())
   axios(config)
-      .then((response) => {
-        console.log(response)
+    .then((response) => {
+      console.log(response)
+      const { status } = response
+      if (status === 401) {
+        dispatch(authActions.logout())
+      }
+      onComplete(response)
+      dispatch(onEnd(response))
+    })
+    .catch((error) => {
+      console.log(error)
+      const { response } = error
+      if (response) {
         const { status } = response
         if (status === 401) {
           dispatch(authActions.logout())
         }
-        onComplete(response)
-        dispatch(onEnd(response))
-      })
-      .catch((error) => {
-        console.log(error)
-        const { response } = error
-        if (response) {
-          const { status } = response
-          if (status === 401) {
-            dispatch(authActions.logout())
-          }
-        }
-        onError(error)
-        dispatch(onEnd(error))
-      })
+      }
+      onError(error)
+      dispatch(onEnd(error))
+    })
 }
 
 export default [api]
