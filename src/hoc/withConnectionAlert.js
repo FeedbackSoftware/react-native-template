@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { NetInfo, Text, View } from 'react-native'
+import { Text, View } from 'react-native'
+import NetInfo from '@react-native-community/netinfo'
 import { connectionActions } from '../state/ducks/connection'
 
 const withConnectionAlert = (WrappedComponent) => {
@@ -52,7 +53,7 @@ const withConnectionAlert = (WrappedComponent) => {
                   navigation={navigation}
                 />
               )
-              : <WrappedComponent/>
+              : <WrappedComponent />
           }
           {
             (connection.actual === 'none' || connection.actual
