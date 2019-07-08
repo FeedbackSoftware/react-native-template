@@ -1,12 +1,22 @@
 import i18n from 'i18next';
-import i18nextReactNative from 'i18next-react-native-language-detector'
+import DeviceInfo from 'react-native-device-info';
 import { reactI18nextModule } from 'react-i18next'
 import { en, es } from './languages/index';
 import { authActions } from '../state/ducks/auth';
 
+const languageDetector = {
+  type: 'languageDetector',
+  async: true, // flags below detection to be async
+  detect: callback => callback(DeviceInfo.getDeviceLocale()),
+  init: () => {
+  },
+  cacheUserLanguage: () => {
+  },
+};
+
 const configurei18n = (store) => {
   i18n
-    .use(i18nextReactNative)
+    .use(languageDetector)
     .use(reactI18nextModule)
     .on('languageChanged', (lng) => {
       store.subscribe(() => {
