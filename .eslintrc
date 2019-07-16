@@ -1,0 +1,19 @@
+{
+  "extends": [
+    "airbnb"
+  ],
+  "plugins": [
+    "react-hooks"
+  ],
+  "rules": {
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "consistent-return": "off",
+    "react/button-has-type": "off",
+    "camelcase": "off",
+    "no-multi-spaces": "off",
+    "react/jsx-curly-spacing": "off",
+    "react/jsx-filename-extension": "off",
+    "semi": "off"
+  }
+}
